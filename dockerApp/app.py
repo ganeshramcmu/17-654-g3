@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request
 import sys
 import optparse
 import time
@@ -7,14 +7,12 @@ app = Flask(__name__)
 start = int(round(time.time()))
 
 @app.route("/")
-def hello_world():
-	return "Hello world from docker"
+def send_index_file():
+	return render_template("index.html")
+
+@app.route("getModelAPrediction")
+def getModelAPrediction():
+	
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(usage="python simpleapp.py -p ")
-    parser.add_option('-p', '--port', action='store', dest='port', help='The port to listen on.')
-    (args, _) = parser.parse_args()
-    if args.port == None:
-        print "Missing required argument: -p/--port"
-        sys.exit(1)
-    app.run(host='0.0.0.0', port=int(args.port), debug=False)
+    app.run(host='0.0.0.0', port=3000, debug=True)
