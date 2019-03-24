@@ -1,18 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 import sys
 import optparse
 import time
 import train
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 start = int(round(time.time()))
+
+@app.route('/js/<path:path>')
+def send_js_files(path):
+    return send_from_directory('js', path)
 
 @app.route("/internalDashboard")
 def send_index_file():
-	train.hello()
+	print(request.args.get('x'))
 	return render_template("index.html")
 
-@app.route("/getModelAPrediction")
+@app.route("/getModelPrediction?v=?")
 def getModelAPrediction():
 	print("Model A prediction")
 	result = train.SmartEnergerA.predict("some date", 1, 2)
