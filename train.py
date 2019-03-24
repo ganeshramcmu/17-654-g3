@@ -4,6 +4,9 @@ hours and minutes, people id as the training attributes. This will be
 our baseline model. 
 '''
 
+def hello:
+	print("hello")
+
 class SmartEnergerA():
 
 	def __init__(self):
