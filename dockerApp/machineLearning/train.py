@@ -26,8 +26,6 @@ class SmartEnergerA():
 	def predict(self, date, pid):
 		x = self.xGenerator(date, pid)
 		prediction = self.classifier.predict(x)
-		for i in prediction:
-			print(i)
 
 		# 4:00 - 16:00 is morning time, we find the first 1.
 		light_on_time_check = prediction[0:1441]
@@ -67,6 +65,9 @@ class SmartEnergerA():
 		with open(self.time_slots_path, 'r') as f:
 			data = f.readlines()
 		f.close()
+
+		year, month, day = date.split('-')
+		date = year + month + day
 
 		result = []
 		for i in data:
@@ -144,6 +145,9 @@ class SmartEnergerB():
 
 		h, m, s = daytime.split(':')
 		daytime = h + m + s
+		year, month, day = date.split('-')
+		date = year + month + day
+		
 		result = []
 		for i in data:
 			i = i.strip('\n')

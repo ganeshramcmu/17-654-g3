@@ -14,7 +14,5 @@ Time_slots_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assi
 test = SmartEnergerA(modelA_path, Time_slots_path)
 a = test.predict('20180908', '8860000')
 
-
-
 for i in a:
 	print(i)
