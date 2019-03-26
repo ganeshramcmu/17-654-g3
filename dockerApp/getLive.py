@@ -59,5 +59,5 @@ def getLiveData():
 
     result_mse = m_mse + "," + n_mse
     result_cmu = m_cmu + "," + n_cmu
-    result = result_mse + "," + result_cmu
+    result = result_mse + ";" + result_cmu
     return result
