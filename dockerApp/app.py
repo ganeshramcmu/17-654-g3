@@ -7,6 +7,10 @@ import datetime
 import global_config
 import machineLearning.train as train
 
+modelA_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelA.joblib'
+modelB_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelB.joblib'
+Time_slots_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/Time_Slots.csv'
+
 app = Flask(__name__, static_url_path='')
 start = int(round(time.time()))
 
@@ -16,14 +20,14 @@ def send_js_files(path):
 
 @app.route("/internalDashboard")
 def send_index_file():
-	print(request.args.get('x'))
 	return render_template("index.html")
 
 @app.route("/getModelPrediction")
 def getModelPrediction():
 	print("Model prediction")
 	#username of the user using the system
-	username = request.args.get("x")
+	username = request.args.get("v")
+
 	#result is a list that stores the model predictions
 	result = []
 	#list of all person ids used to train the model 
@@ -36,17 +40,32 @@ def getModelPrediction():
 	if username=="cmu":
 		person_index = random.randint(0,2)
 		person_id = person_ids[person_index]
-
-		#result = train.SmartEnergerA.predict("dummy", "2019-03-25", person_id)
-		result="Predicted morning close time: 09:00 AM,Predicted evening open time: 10:00 PM"
+		#instance of modelA
+		smartEnergyA = train.SmartEnergerA(modelA_path, Time_slots_path)
+		result = smartEnergyA.predict(currentDate, person_id)
+		
 	#Model B will be used for user mse
 	elif username=="mse":
 		person_index = random.randint(3,5)
 		person_id = person_ids[person_index]
+		#instance of modelA
+		smartEnergyB = train.SmartEnergerB(modelB_path, Time_slots_path)
+		result = smartEnergyB.predict(currentDate, person_id)
 
-		result = train.SmartEnergerB.predict("dummy", currentDate, person_id)
+	response = "Prediction Failed"
+
+	if result != []:
+		light_on_minute_interval = result[0][-1]
+		light_on_minute = result[0][-3:-1]
+		light_on_hour = result[0][:-3]
+
+		light_off_minute_interval = result[1][-1]
+		light_off_minute = result[1][-3:-1]
+		light_off_hour = result[1][:-3]
+		
+		response = "Predicted light on time in morning: " + light_on_hour + ":" + light_on_minute + "," + "Predicted light off time in evening: " + light_off_hour + ":" + light_off_minute
 	
-	return result
+	return response
 
 
 if __name__ == '__main__':
