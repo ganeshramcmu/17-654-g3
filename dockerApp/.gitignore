@@ -1,0 +1,14 @@
+#Ignore PretrainedModel
+
+machineLearning/PretrainedModel
+
+#Ignore dataA
+
+machineLearning/dataA
+
+#Ignore dataB
+
+machineLearning/dataB
+
+#Ignore global_config.py
+global_config.py
