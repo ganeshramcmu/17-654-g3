@@ -38,7 +38,6 @@ def getLiveData():
     tm_mse = t_m + " and home_name = 'mse'"
     tm_cmu = t_m + " and home_name = 'cmu'"
 
-    print(tm_mse)
 
     m_mse = parse(tm_mse, cursor)
     m_cmu = parse(tm_cmu, cursor)
