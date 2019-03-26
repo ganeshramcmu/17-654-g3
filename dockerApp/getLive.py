@@ -14,6 +14,19 @@ def parse(command, cursor):
         result = "none"
     else:
         result = str(data[0])
+        result = result[19:]
+
+        test = result.split(", ")
+        year = test[0]
+        month = test[1]
+        day = test[2]
+
+        hour = test[3]
+        min = test[4]
+        sec = test[5][0:2]
+
+        result = year+ "-" + month + "-" +day + " " + hour + ":" + min + ":" + sec
+
     return result
 
 
@@ -38,7 +51,6 @@ def getLiveData():
     tm_mse = t_m + " and home_name = 'mse'"
     tm_cmu = t_m + " and home_name = 'cmu'"
 
-
     m_mse = parse(tm_mse, cursor)
     m_cmu = parse(tm_cmu, cursor)
 
@@ -50,8 +62,6 @@ def getLiveData():
 
     n_mse = parse(tn_mse, cursor)
     n_cmu = parse(tn_cmu, cursor)
-
-
 
 
     cursor.close()
