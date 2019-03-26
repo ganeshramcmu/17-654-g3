@@ -8,9 +8,15 @@ import global_config
 import getLive
 import machineLearning.train as train
 
-modelA_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelA.joblib'
-modelB_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelB.joblib'
-Time_slots_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/Time_Slots.csv'
+
+modelA_path = '/home/hotel/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelA.joblib'
+modelB_path = '/home/hotel/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelB.joblib'
+Time_slots_path = '/home/hotel/17-654-g3/dockerApp/machineLearning/Time_Slots.csv'
+
+if global_config.debug==True:
+	modelA_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelA.joblib'
+	modelB_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/PretrainedModel/modelB.joblib'
+	Time_slots_path = '/Users/ganeshramks/Downloads/AnalysisOfSoftwareArtifacts/assignments/group_assignment_3/17-654-g3/dockerApp/machineLearning/Time_Slots.csv'
 
 #list of all person ids used to train the model 
 person_ids = [9351,5037,990,1688,3440,9419]
